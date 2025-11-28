@@ -11,7 +11,8 @@ const createImageResponse = (buffer: Buffer, filename: string | null = null) => 
     "Cache-Control": "public, max-age=3600",
   }
   if (filename) headers["Content-Disposition"] = `inline; filename="${filename}"`
-  return new Response(buffer, { headers })
+
+  return new Response(new Uint8Array(buffer), { headers }) // ✅ FIX
 }
 
 async function stable(prompt: string) {
